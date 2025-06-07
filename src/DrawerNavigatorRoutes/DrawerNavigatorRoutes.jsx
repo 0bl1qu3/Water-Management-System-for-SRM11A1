@@ -10,9 +10,9 @@ function DrawerNavigatorRoutes() {
   return (
     <DrawerNavigation>
       <Routes>
-        <Route path="/" element={<Updates />} />
+        <Route path="/" element={<Home />} />
         <Route path="/reports" element={<Reports />} />
-        <Route path="/updates" element={<Home />} />
+        <Route path="/updates" element={<Updates />} />
       </Routes>
     </DrawerNavigation>
   );
