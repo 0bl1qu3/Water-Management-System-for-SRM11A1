@@ -35,7 +35,7 @@ const UsageMonitor = () => {
     totalCapacity: accommodations.reduce((sum, acc) => sum + acc.totalCapacity, 0) + 20000, // Adding 20,000L for other buildings
     dailyConsumption: accommodations.reduce((sum, acc) => sum + acc.dailyConsumption, 0) + 3000, // Adding 3,000L for other buildings
     leakReports: accommodations.reduce((sum, acc) => sum + acc.leakReports, 0) + 4, // Adding 4 leaks for other buildings
-    conservationTip: "Implement rainwater harvesting to supplement campus water supply.",
+    conservationTip: "Make sure to report every leak you see, it only takes a few seconds.",
   };
   // Calculate total remaining liters and water level for campus
   const campusRemainingLiters = accommodations.reduce(
@@ -58,7 +58,7 @@ const UsageMonitor = () => {
     return `${strokeDash} ${circumference - strokeDash}`;
   };
 
-  // Function to calculate remaining liters
+  // Function to calculate remaining liters. I used this to create random numbers
   const calculateRemainingLiters = (waterLevel, totalCapacity) => {
     return Math.round((waterLevel / 100) * totalCapacity);
   };
@@ -67,7 +67,7 @@ const UsageMonitor = () => {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          Water Usage Monitor
+          Water Tracker & Monitor
         </h2>
         {/* Campus-wide Statistics Box */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8 flex flex-col items-center transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">

@@ -12,7 +12,7 @@ const DrawerNavigatorTab = ({ children }) => {
           <button onClick={() => setIsOpen(true)} className="text-gray-800">
             <Menu size={26} />
           </button>
-          <h1 className="ml-4 text-xl font-semibold">Water Management</h1>
+          <h1 className="ml-4 text-xl font-semibold">CampusTracker</h1>
         </div>
 
         {/* Drawer: Content of opened left drawer */}
@@ -22,7 +22,7 @@ const DrawerNavigatorTab = ({ children }) => {
           }`}
         >
           <div className="p-4 border-b flex justify-between items-center">
-            <span className="text-lg font-bold">Hey there, User!</span>
+            <span className="text-lg font-bold">Hey there!</span>
             <button onClick={() => setIsOpen(false)} className="text-3xl text-gray-600">
               ×
             </button>
