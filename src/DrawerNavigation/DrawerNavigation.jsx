@@ -7,7 +7,7 @@ const DrawerNavigatorTab = ({ children }) => {
 
     return (
       <div className="min-h-screen bg-gray-100">
-        {/* Top Nav: Fixed tab at the top of the screen */}
+        {/* Top Navigation Code: Fixed tab at the top of the screen */}
         <div className="fixed top-0 left-0 right-0 z-50 flex items-center bg-white px-4 py-3 shadow">
           <button onClick={() => setIsOpen(true)} className="text-gray-800">
             <Menu size={26} />
@@ -15,7 +15,7 @@ const DrawerNavigatorTab = ({ children }) => {
           <h1 className="ml-4 text-xl font-semibold">CampusTracker</h1>
         </div>
 
-        {/* Drawer: Content of opened left drawer */}
+        {/* Drawer Navigation Code: Content of opened left drawer */}
         <div
           className={`fixed top-0 left-0 h-full w-70 bg-white z-50 shadow transform transition-transform duration-300 ${
             isOpen ? "translate-x-0" : "-translate-x-full"
@@ -42,7 +42,7 @@ const DrawerNavigatorTab = ({ children }) => {
           </nav>
         </div>
 
-        {/* Overlay: Background of screen when drawer is open */}
+        {/* Overlay Code: Background of screen when drawer is open. I made it transparent */}
         {isOpen && (
           <div
             onClick={() => setIsOpen(false)}
@@ -50,7 +50,7 @@ const DrawerNavigatorTab = ({ children }) => {
           />
         )}
 
-        {/* Main content with padding to avoid overlap with fixed header */}
+        {/* Main content of screens with padding to avoid overlap with the fixed header */}
         <div className="pt-16">{children}</div>
       </div>
     );

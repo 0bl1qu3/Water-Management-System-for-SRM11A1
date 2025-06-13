@@ -1,6 +1,7 @@
 import React from "react";
 
 const UsageMonitor = () => {
+
   // Sample data for accommodations with total reservoir capacity
   const accommodations = [
     {
@@ -30,6 +31,7 @@ const UsageMonitor = () => {
   ];
 
   // Campus-wide data (including residences and other buildings)
+  // None of these calculations are entirely my own
   const campusData = {
     name: "Entire Campus",
     totalCapacity: accommodations.reduce((sum, acc) => sum + acc.totalCapacity, 0) + 20000, // Adding 20,000L for other buildings
@@ -37,7 +39,7 @@ const UsageMonitor = () => {
     leakReports: accommodations.reduce((sum, acc) => sum + acc.leakReports, 0) + 4, // Adding 4 leaks for other buildings
     conservationTip: "Make sure to report every leak you see, it only takes a few seconds.",
   };
-  // Calculate total remaining liters and water level for campus
+  // This calculates total remaining liters and water level for campus
   const campusRemainingLiters = accommodations.reduce(
     (sum, acc) => sum + (acc.waterLevel / 100) * acc.totalCapacity,
     0
@@ -46,9 +48,9 @@ const UsageMonitor = () => {
 
   // Function to determine color based on water level
   const getWaterLevelColor = (percentage) => {
-    if (percentage >= 70) return "text-green-500"; // High water level
-    if (percentage >= 30) return "text-orange-500"; // Medium water level
-    return "text-red-500"; // Low water level
+    if (percentage >= 70) return "text-green-500"; // High water level: Green
+    if (percentage >= 30) return "text-orange-500"; // Medium water level: Orange
+    return "text-red-500"; // Low water level: Red
   };
 
   // Function to calculate stroke dasharray for circular progress
@@ -69,7 +71,7 @@ const UsageMonitor = () => {
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Water Tracker & Monitor
         </h2>
-        {/* Campus-wide Statistics Box */}
+        {/* Campus-wide Statistics Box: Contains campus stats */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8 flex flex-col items-center transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
           <h3 className="text-2xl font-semibold text-gray-800 mb-4">
             {campusData.name}
@@ -129,7 +131,7 @@ const UsageMonitor = () => {
             </p>
           </div>
         </div>
-        {/* Residences Grid */}
+        {/* Residences Grid: Contains residences stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {accommodations.map((accommodation, index) => (
             <div

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { supabase } from "../supabase"; // Adjust the import path if needed
+import { supabase } from "../supabase";
 
 const Updates = () => {
   // State for the list of updates
@@ -13,7 +13,7 @@ const Updates = () => {
   // State to control comment input focus
   const [commentFocus, setCommentFocus] = useState(false);
 
-  // Fetch updates from Supabase when the component mounts
+  // Fetches updates from Supabase when the component mounts
   useEffect(() => {
     const fetchUpdates = async () => {
       const { data, error } = await supabase
@@ -30,7 +30,7 @@ const Updates = () => {
 
     fetchUpdates();
 
-    // Set up a real-time subscription
+    // Set up a real-time subscription to the "Updates" table
     const subscription = supabase
       .channel("public:updates")
       .on(
@@ -45,7 +45,7 @@ const Updates = () => {
     };
   }, []);
 
-  // Handle liking an update
+  // Handles liking an update/post
   const handleLike = async (id, currentLikes) => {
     const { error } = await supabase
       .from("updates")
@@ -65,7 +65,7 @@ const Updates = () => {
     );
   };
 
-  // Get status color based on the status value
+  // Switch statement to get status color based on the status value
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
       case "not started":
@@ -79,7 +79,7 @@ const Updates = () => {
     }
   };
 
-  // Handle adding a comment
+  // Handles adding a comment to a post
   const handleAddComment = (e) => {
     if (e.key === "Enter" && newComment.trim() && selectedUpdate) {
       const updateComments = commentsById[selectedUpdate.id] || [];
@@ -96,7 +96,7 @@ const Updates = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      {/* Updates List Section */}
+      {/* Updates List Section, where users will be able to view updates/posts */}
       <div className="space-y-4">
         <h2 className="text-2xl font-semibold text-gray-800">Updates</h2>
         {updates.length === 0 ? (
@@ -129,7 +129,7 @@ const Updates = () => {
                   </span>
                   <button
                     onClick={(e) => {
-                      e.stopPropagation(); // Prevent modal from opening when clicking the like button
+                      e.stopPropagation(); // Prevents the modal from opening when clicking the like button
                       handleLike(update.id, update.likes);
                     }}
                     className="flex items-center space-x-1 text-gray-600 hover:text-red-500 transition"
@@ -154,7 +154,7 @@ const Updates = () => {
         )}
       </div>
 
-      {/* Modal for larger view with comments */}
+      {/* Modal for larger view with comments. When user clicks on posts/update */}
       {selectedUpdate && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg p-6 max-w-lg w-full">
@@ -198,7 +198,7 @@ const Updates = () => {
                 <span>{selectedUpdate.likes}</span>
               </button>
             </div>
-            {/* Comments List */}
+            {/* Comments List, where comments will be shown */}
             <div className="mb-4">
               <h3 className="text-lg font-medium text-gray-700 mb-2">Comments</h3>
               {currentComments.length === 0 ? (
@@ -213,7 +213,7 @@ const Updates = () => {
                 </ul>
               )}
             </div>
-            {/* Comment Input */}
+            {/* Comment Input, where user can enter another comment */}
             <div className="mt-4">
               <input
                 type="text"

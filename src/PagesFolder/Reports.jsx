@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { supabase } from "../supabase"; // Adjust the import path if needed
+import { supabase } from "../supabase";
 
 const Reports = () => {
-  // State for form inputs
+
+  // States for form inputs
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [image, setImage] = useState(null);
+
   // State for the list of posts
   const [posts, setPosts] = useState([]);
 
-  // Fetch posts from Supabase when the component mounts
+  // Fetching posts from Supabase when the component mounts
   useEffect(() => {
     const fetchPosts = async () => {
       const { data, error } = await supabase
@@ -27,7 +29,7 @@ const Reports = () => {
 
     fetchPosts();
 
-    // Optional: Set up a real-time subscription (if needed)
+    // Sets up a real-time subscription to the "posts" table
     const subscription = supabase
       .channel("public:posts")
       .on(
@@ -42,7 +44,7 @@ const Reports = () => {
     };
   }, []);
 
-  // Handle form submission
+  // Handles form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title || !description || !location || !image) {
@@ -51,7 +53,7 @@ const Reports = () => {
     }
 
     try {
-      // Upload image to Supabase Storage
+      // Upload user image to Supabase Storage
       const fileName = `${Date.now()}_${image.name}`;
       const { error: uploadError } = await supabase.storage
         .from("images")
@@ -63,14 +65,14 @@ const Reports = () => {
         return;
       }
 
-      // Get the public URL of the uploaded image
+      // Get the public URL of the uploaded image to store in the table
       const { data: urlData } = supabase.storage
         .from("images")
         .getPublicUrl(fileName);
 
       const imageUrl = urlData.publicUrl;
 
-      // Add post to Supabase database
+      // Adds post to Supabase database once everything is valid
       const { error: insertError } = await supabase.from("posts").insert([
         {
           title,
@@ -86,7 +88,7 @@ const Reports = () => {
         return;
       }
 
-      // Reset the form
+      // Resets the form or returns an error
       setTitle("");
       setDescription("");
       setLocation("");
@@ -97,7 +99,7 @@ const Reports = () => {
     }
   };
 
-  // Handle image upload
+  // Handles image upload to Supabase
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -107,7 +109,8 @@ const Reports = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      {/* Form Section */}
+
+      {/* Form Section, where users will fill in details */}
       <div className="bg-white p-6 rounded-lg shadow mb-6">
         <h2 className="text-2xl font-semibold mb-4 text-gray-800">Add a New Report</h2>
         <div className="space-y-4">
@@ -168,7 +171,7 @@ const Reports = () => {
         </div>
       </div>
 
-      {/* Posts List Section */}
+      {/* Posts Section, where users will see their reports from the database */}
       <div className="space-y-4">
         <h2 className="text-2xl font-semibold text-gray-800">Reports</h2>
         {posts.length === 0 ? (

@@ -9,6 +9,8 @@ function DrawerNavigatorRoutes() {
 
   return (
     <DrawerNavigation>
+
+      {/* Routes for navigating to each page */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/reports" element={<Reports />} />
